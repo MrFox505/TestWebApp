@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TestWebApp.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // получаем строку подключения из файла конфигурации

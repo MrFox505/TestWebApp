@@ -16,8 +16,12 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Денис\Documents\GitHub\TestWebApp
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Денис/Documents/GitHub/TestWebApp/Views/CreateGamer.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlYXRlR2FtZXIuY3NodG1s
+[C:/Users/Денис/Documents/GitHub/TestWebApp/Views/Home/CreateGamer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGVHYW1lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Денис/Documents/GitHub/TestWebApp/Views/Home/EditGamer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFZGl0R2FtZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Денис/Documents/GitHub/TestWebApp/Views/Home/Index.cshtml]
