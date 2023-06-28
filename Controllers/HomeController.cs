@@ -70,6 +70,12 @@ namespace TestWebApp.Controllers
             return NotFound();
         }
 
+        public IActionResult CreateTransaction()
+        {
+            var transVm = new Transaction();
+            return View(transVm);
+        }
+
         public IActionResult Privacy()
         {
             return View();

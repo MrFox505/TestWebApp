@@ -15,6 +15,7 @@ namespace TestWebApp.DataBase
 
 
         public DbSet<Gamer> Gamers => Set<Gamer>();//представляет набор объектов, которые хранятся в базе данных
+        public DbSet<Transaction> Transactions => Set<Transaction>();//представляет набор объектов, которые хранятся в базе данных
         public Child_DbContext() => Database.EnsureCreated();//проверка наличия базы, если нет, то создаст автоматом
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)//устанавливает параметры подключения
