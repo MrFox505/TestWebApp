@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TestWebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace TestWebApp.Controllers
 {
@@ -18,8 +19,18 @@ namespace TestWebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            db = new Child_DbContext();
-            return View(await db.Gamers.ToListAsync());
+            //db = new Child_DbContext();
+            //return View(await db.Gamers.ToListAsync());
+            using (var db = new Child_DbContext())
+            {
+                var model = new Union();
+                {
+                    model.gamerU = db.Gamers.ToList();
+                    model.transactionU = db.Transactions.ToList();
+                };
+
+                return View(model);
+            }
         }
         public IActionResult CreateGamer()
         {
@@ -74,6 +85,14 @@ namespace TestWebApp.Controllers
         {
             var transVm = new Transaction();
             return View(transVm);
+        }
+        public async Task<IActionResult> CreateTransactionDB(Transaction transaction)
+        {
+            Child_DbContext db2 = new Child_DbContext();
+            db2.Transactions.Add(transaction);
+            await db2.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
