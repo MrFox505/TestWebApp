@@ -56,10 +56,10 @@ namespace TestWebApp.Controllers
             return NotFound();
         }
         [HttpPost]
-        public async Task<IActionResult> EditGamer(Gamer dog)
+        public async Task<IActionResult> EditGamer(Gamer gamer)
         {
             Child_DbContext db = new Child_DbContext();
-            db.Gamers.Update(dog);
+            db.Gamers.Update(gamer);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -92,6 +92,24 @@ namespace TestWebApp.Controllers
             db2.Transactions.Add(transaction);
             await db2.SaveChangesAsync();
 
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> EditTransaction(int? id)
+        {
+            if (id != null)
+            {
+                Child_DbContext db = new Child_DbContext();
+                Transaction? transaction = await db.Transactions.FirstOrDefaultAsync(p => p.Id == id);
+                if (transaction != null) return View(transaction);
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditTransaction(Transaction transaction)
+        {
+            Child_DbContext db = new Child_DbContext();
+            db.Transactions.Update(transaction);
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
