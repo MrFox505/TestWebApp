@@ -60,3 +60,38 @@
         </tr>
     }
 </table>
+
+<caption>Ставки</caption>
+<table class="table">
+    </br>
+    <a asp-action="CreateBet" asp-controller="Home">Создать</a>
+    <tr>
+        <th>ID cnfdrb</th>
+        <th>Игрок</th>
+        <th>Сумма</th>
+        <th>Дата</th>
+        <th>Выигрыш</th>
+        <th>Дата расчета</th>
+
+    </tr>
+    @foreach (var item in Model.betU)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.GamerId</td>
+            <td>@item.Sum</td>
+            <td>@item.DateBet</td>
+            <td>@item.Win</td>
+            <td>@item.CalculationDate</td>
+
+            <td>
+                <a asp-action="EditBet" asp-controller="Home" asp-route-id="@item.Id">Изменить</a>
+            </td>
+            <td>
+                <form asp-controller="Home" asp-action="DeleteBetDB" method="post" asp-route-id="@item.Id">
+                    <input type="submit" value="Удалить" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>

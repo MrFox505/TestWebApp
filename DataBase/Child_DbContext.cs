@@ -17,6 +17,8 @@ namespace TestWebApp.DataBase
 
         public DbSet<Gamer> Gamers => Set<Gamer>();//представляет набор объектов, которые хранятся в базе данных
         public DbSet<Transaction> Transactions => Set<Transaction>();//представляет набор объектов, которые хранятся в базе данных
+        public DbSet<Bet> Bets => Set<Bet>();//представляет набор объектов, которые хранятся в базе данных
+
         //public DbSet<Gamer> Gamers { get; set; } = null!;
         //public DbSet<Transaction> Transactions { get; set; } = null!;
         public Child_DbContext() => Database.EnsureCreated();//проверка наличия базы, если нет, то создаст автоматом

@@ -27,6 +27,8 @@ namespace TestWebApp.Controllers
                 {
                     model.gamerU = db.Gamers.ToList();
                     model.transactionU = db.Transactions.ToList();
+                    model.betU = db.Bets.ToList();
+
                 };
 
                 return View(model);
@@ -113,6 +115,79 @@ namespace TestWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteTransactionDB(int? id)
+        {
+            if (id != null)
+            {
+                Child_DbContext db = new Child_DbContext();
+                Transaction? transaction = await db.Transactions.FirstOrDefaultAsync(p => p.Id == id);
+                if (transaction != null)
+                {
+                    db.Transactions.Remove(transaction);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
+
+        /// <summary>
+        /// ////////////////////////
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult CreateBet()
+        {
+            var betVm = new Bet();
+            return View(betVm);
+        }
+        public async Task<IActionResult> CreateBetDB(Bet bet)
+        {
+            Child_DbContext db2 = new Child_DbContext();
+            db2.Bets.Add(bet);
+            await db2.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> EditBet(int? id)
+        {
+            if (id != null)
+            {
+                Child_DbContext db = new Child_DbContext();
+                Bet? bet = await db.Bets.FirstOrDefaultAsync(p => p.Id == id);
+                if (bet != null) return View(bet);
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditBet(Bet bet)
+        {
+            Child_DbContext db = new Child_DbContext();
+            db.Bets.Update(bet);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteBetDB(int? id)
+        {
+            if (id != null)
+            {
+                Child_DbContext db = new Child_DbContext();
+                Bet? bet = await db.Bets.FirstOrDefaultAsync(p => p.Id == id);
+                if (bet != null)
+                {
+                    db.Bets.Remove(bet);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
+        /// <summary>
+        /// //////////
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Privacy()
         {
             return View();
