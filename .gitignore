@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/TestWebApp/FileContentIndex/0d9c926a-ef2f-4888-9f3a-3ac6f5922c6f.vsidx
+/TestAppSQLite.db-shm
+/TestAppSQLite.db-wal

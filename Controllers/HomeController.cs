@@ -34,6 +34,10 @@ namespace TestWebApp.Controllers
                 return View(model);
             }
         }
+        /// <summary>
+        /// /////////
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CreateGamer()
         {
             var gamVm = new Gamer();
@@ -82,7 +86,10 @@ namespace TestWebApp.Controllers
             }
             return NotFound();
         }
-
+        /// <summary>
+        /// /////////
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CreateTransaction()
         {
             var transVm = new Transaction();
