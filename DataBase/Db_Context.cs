@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace TestWebApp.DataBase
 {
-    public class Child_DbContext : DbContext
+    public class Db_Context : DbContext
     {
 
         //public DbSet<DogViewModel> Dogs { get; set; } = null!;
@@ -18,10 +18,11 @@ namespace TestWebApp.DataBase
         public DbSet<Gamer> Gamers => Set<Gamer>();//представляет набор объектов, которые хранятся в базе данных
         public DbSet<Transaction> Transactions => Set<Transaction>();//представляет набор объектов, которые хранятся в базе данных
         public DbSet<Bet> Bets => Set<Bet>();//представляет набор объектов, которые хранятся в базе данных
+        //public DbSet<Bonus> Bonuses => Set<Bonus>();//представляет набор объектов, которые хранятся в базе данных
 
         //public DbSet<Gamer> Gamers { get; set; } = null!;
         //public DbSet<Transaction> Transactions { get; set; } = null!;
-        public Child_DbContext() => Database.EnsureCreated();//проверка наличия базы, если нет, то создаст автоматом
+        //public Db_Context() => Database.EnsureCreated();//проверка наличия базы, если нет, то создаст автоматом
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)//устанавливает параметры подключения
         {

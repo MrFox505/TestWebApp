@@ -11,7 +11,7 @@ namespace TestWebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        Child_DbContext db;
+        DataBase.Db_Context db;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -21,7 +21,7 @@ namespace TestWebApp.Controllers
         {
             //db = new Child_DbContext();
             //return View(await db.Gamers.ToListAsync());
-            using (var db = new Child_DbContext())
+            using (var db = new DataBase.Db_Context())
             {
                 var model = new Union();
                 {
@@ -31,7 +31,7 @@ namespace TestWebApp.Controllers
 
                 };
 
-                return View(model);
+                return base.View(model);
             }
         }
         /// <summary>
@@ -45,7 +45,7 @@ namespace TestWebApp.Controllers
         }
         public async Task<IActionResult> CreateGamerDB(Gamer gamer)
         {
-            Child_DbContext db2 = new Child_DbContext();
+            DataBase.Db_Context db2 = new DataBase.Db_Context();
             db2.Gamers.Add(gamer);
             await db2.SaveChangesAsync();
 
@@ -55,7 +55,7 @@ namespace TestWebApp.Controllers
         {
             if (id != null)
             {
-                Child_DbContext db = new Child_DbContext();
+                DataBase.Db_Context db = new DataBase.Db_Context();
                 Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == id);
                 if (gamer != null) return View(gamer);
             }
@@ -64,7 +64,7 @@ namespace TestWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> EditGamer(Gamer gamer)
         {
-            Child_DbContext db = new Child_DbContext();
+            DataBase.Db_Context db = new DataBase.Db_Context();
             db.Gamers.Update(gamer);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -75,7 +75,7 @@ namespace TestWebApp.Controllers
         {
             if (id != null)
             {
-                Child_DbContext db = new Child_DbContext();
+                DataBase.Db_Context db = new DataBase.Db_Context();
                 Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == id);
                 if (gamer != null)
                 {
@@ -97,7 +97,7 @@ namespace TestWebApp.Controllers
         }
         public async Task<IActionResult> CreateTransactionDB(Transaction transaction)
         {
-            Child_DbContext db2 = new Child_DbContext();
+            DataBase.Db_Context db2 = new DataBase.Db_Context();
             db2.Transactions.Add(transaction);
             await db2.SaveChangesAsync();
 
@@ -107,7 +107,7 @@ namespace TestWebApp.Controllers
         {
             if (id != null)
             {
-                Child_DbContext db = new Child_DbContext();
+                DataBase.Db_Context db = new DataBase.Db_Context();
                 Transaction? transaction = await db.Transactions.FirstOrDefaultAsync(p => p.Id == id);
                 if (transaction != null) return View(transaction);
             }
@@ -116,7 +116,7 @@ namespace TestWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> EditTransaction(Transaction transaction)
         {
-            Child_DbContext db = new Child_DbContext();
+            DataBase.Db_Context db = new DataBase.Db_Context();
             db.Transactions.Update(transaction);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -127,7 +127,7 @@ namespace TestWebApp.Controllers
         {
             if (id != null)
             {
-                Child_DbContext db = new Child_DbContext();
+                DataBase.Db_Context db = new DataBase.Db_Context();
                 Transaction? transaction = await db.Transactions.FirstOrDefaultAsync(p => p.Id == id);
                 if (transaction != null)
                 {
@@ -150,7 +150,7 @@ namespace TestWebApp.Controllers
         }
         public async Task<IActionResult> CreateBetDB(Bet bet)
         {
-            Child_DbContext db2 = new Child_DbContext();
+            DataBase.Db_Context db2 = new DataBase.Db_Context();
             db2.Bets.Add(bet);
             await db2.SaveChangesAsync();
 
@@ -160,7 +160,7 @@ namespace TestWebApp.Controllers
         {
             if (id != null)
             {
-                Child_DbContext db = new Child_DbContext();
+                DataBase.Db_Context db = new DataBase.Db_Context();
                 Bet? bet = await db.Bets.FirstOrDefaultAsync(p => p.Id == id);
                 if (bet != null) return View(bet);
             }
@@ -169,7 +169,7 @@ namespace TestWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> EditBet(Bet bet)
         {
-            Child_DbContext db = new Child_DbContext();
+            DataBase.Db_Context db = new DataBase.Db_Context();
             db.Bets.Update(bet);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -180,7 +180,7 @@ namespace TestWebApp.Controllers
         {
             if (id != null)
             {
-                Child_DbContext db = new Child_DbContext();
+                DataBase.Db_Context db = new DataBase.Db_Context();
                 Bet? bet = await db.Bets.FirstOrDefaultAsync(p => p.Id == id);
                 if (bet != null)
                 {

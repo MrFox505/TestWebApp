@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestWebApp.DataBase;
 
@@ -9,10 +10,12 @@ using TestWebApp.DataBase;
 
 namespace TestWebApp.Migrations
 {
-    [DbContext(typeof(Child_DbContext))]
-    partial class Child_DbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(Db_Context))]
+    [Migration("20230707091501_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");

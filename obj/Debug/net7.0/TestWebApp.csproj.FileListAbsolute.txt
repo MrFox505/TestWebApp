@@ -763,3 +763,6 @@ C:\Users\dsmirnov\source\repos\MrFox505\TestWebApp\obj\Debug\net7.0\scopedcss\pr
 C:\Users\dsmirnov\source\repos\MrFox505\TestWebApp\obj\Debug\net7.0\TestWebApp.csproj.CopyComplete
 C:\Users\dsmirnov\source\repos\MrFox505\TestWebApp\obj\Debug\net7.0\TestWebApp.genruntimeconfig.cache
 C:\Users\dsmirnov\source\repos\MrFox505\TestWebApp\obj\Debug\net7.0\ref\TestWebApp.dll
+C:\Users\dsmirnov\source\repos\MrFox505\TestWebApp\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\dsmirnov\source\repos\MrFox505\TestWebApp\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\dsmirnov\source\repos\MrFox505\TestWebApp\bin\Debug\net7.0\System.CodeDom.dll
