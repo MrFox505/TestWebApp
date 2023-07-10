@@ -3,7 +3,43 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table tbody td, .table thead th {
+            border: 1px solid #646a6e;
+            padding: 2px 5px;
+        }
+
+        .table thead tr th {
+            background: #00a140;
+            text-align: center;
+        }
+
+    .wrap-expand-table a[href^="#click-expand"], .wrap-expand-table a[href="#close"] {
+        text-decoration: none;
+        border-bottom: 1px dashed;
+    }
+
+    /* Если браузер не поддерживает структурные псевдоклассы, то список будет раскрыт и доступ к данным сохранится */
+    [id^="click-expand"] {
+        position: fixed; /* чтобы страница "не подпрыгивала" к id */
+    }
+
+        [id^="click-expand"]:target + .wrap-expand-table a[href^="#click-expand"],
+        [id^="click-expand"]:not(:target) + .wrap-expand-table tbody tr:nth-of-type(n+0), /* 5 — порядковый номер строки, после которой строки будут скрыты */
+        [id^="click-expand"]:not(:target) + .wrap-expand-table a[href="#close"] {
+            display: none;
+        }
+</style>
+
 <caption>Игроки</caption>
+<div id="click-expand1" /></div>
+<div class="wrap-expand-table">
+    <a href="#close">Свернуть</a><a href="#click-expand1">Развернуть</a>
 <table class="table">
     </br>
     <a asp-action="CreateGamer" asp-controller="Home">Создать</a>
@@ -28,8 +64,13 @@
         </tr>
     }
 </table>
+    <a href="#close">Cвернуть</a><a href="#click-expand1">Посмотреть весь список</a>
+</div>
 
 <caption>Транзакции</caption>
+<div id="click-expand2" /></div>
+<div class="wrap-expand-table">
+    <a href="#close">Свернуть</a><a href="#click-expand2">Развернуть</a>
 <table class="table">
     </br>
     <a asp-action="CreateTransaction" asp-controller="Home">Создать</a>
@@ -59,9 +100,14 @@
             </td>
         </tr>
     }
-</table>
+    </table><a href="#close">Cвернуть</a><a href="#click-expand2">Посмотреть весь список</a>
+</div>
 
 <caption>Ставки</caption>
+    <div id="click-expand3" />
+</div>
+<div class="wrap-expand-table">
+    <a href="#close">Свернуть</a><a href="#click-expand3">Развернуть</a>
 <table class="table">
     </br>
     <a asp-action="CreateBet" asp-controller="Home">Создать</a>
@@ -94,4 +140,5 @@
             </td>
         </tr>
     }
-</table>
+    </table><a href="#close">Cвернуть</a><a href="#click-expand3">Посмотреть весь список</a>
+</div>
