@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TestWebApp.Models.Union>
+﻿@model Union
 
 @{
     ViewData["Title"] = "Report";
@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.gamerU) {
         <tr>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
