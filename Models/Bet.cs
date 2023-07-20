@@ -1,7 +1,10 @@
-﻿namespace TestWebApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TestWebApp.Models
 {
     public class Bet
     {
+        [Key]
         public int Id { get; set; }
         public int GamerId { get; set; }
         public int Sum { get; set; }
