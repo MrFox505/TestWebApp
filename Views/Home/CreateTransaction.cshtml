@@ -33,11 +33,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="TypeOperation" class="control-label">Тип транзакции</label><br>
-                @*<input asp-for="TypeOperation" class="form-control" />*@
-                @*@Html.DropDownList("Операция", new SelectList(Model.TypeOperation))*@
                 @Html.DropDownList("Операция", Html.GetEnumSelectList(typeof(Transaction.EnumTypeOperation)))
                 <span asp-validation-for="TypeOperation" class="text-danger"></span>
-                <br>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

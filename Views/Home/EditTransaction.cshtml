@@ -35,8 +35,6 @@
                 <label asp-for="TypeOperation" class="control-label"></label><br>
                 @Html.DropDownList("TypeOperation", Html.GetEnumSelectList(typeof(Transaction.EnumTypeOperation)))
                 <span asp-validation-for="TypeOperation" class="text-danger"></span>
-               
-                <br>
             </div>
             <div class="form-group">
                 <input type="submit" value="Edit" class="btn btn-primary" />

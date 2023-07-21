@@ -97,9 +97,29 @@ namespace TestWebApp.Controllers
         }
         public async Task<IActionResult> CreateTransactionDB(Transaction transaction)
         {
-            DataBase.Db_Context db2 = new DataBase.Db_Context();
-            db2.Transactions.Add(transaction);
-            await db2.SaveChangesAsync();
+            DataBase.Db_Context db = new DataBase.Db_Context();
+            Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == transaction.GamerId);
+
+            if (transaction.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
+            {
+                if (gamer != null)
+                {
+                    gamer.Balance += transaction.Sum;
+                    db.Gamers.Update(gamer);
+                    await db.SaveChangesAsync();
+                }
+            }
+            else if (transaction.TypeOperation == Transaction.EnumTypeOperation.Снятие)
+            {
+                if (gamer != null)
+                {
+                    gamer.Balance -= transaction.Sum;
+                    db.Gamers.Update(gamer);
+                    await db.SaveChangesAsync();
+                }
+            }
+            db.Transactions.Add(transaction);
+            await db.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
@@ -117,6 +137,27 @@ namespace TestWebApp.Controllers
         public async Task<IActionResult> EditTransaction(Transaction transaction)
         {
             DataBase.Db_Context db = new DataBase.Db_Context();
+            Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == transaction.GamerId);
+
+            if (transaction.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
+            {
+                if (gamer != null)
+                {
+                    gamer.Balance += transaction.Sum;
+                    db.Gamers.Update(gamer);
+                    await db.SaveChangesAsync();
+                }
+            }
+            else if (transaction.TypeOperation == Transaction.EnumTypeOperation.Снятие)
+            {
+                if (gamer != null)
+                {
+                    gamer.Balance -= transaction.Sum;
+                    db.Gamers.Update(gamer);
+                    await db.SaveChangesAsync();
+                }
+            }
+
             db.Transactions.Update(transaction);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
