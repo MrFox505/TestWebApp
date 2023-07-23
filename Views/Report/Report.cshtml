@@ -1,0 +1,33 @@
+﻿@model Union
+
+@{
+    ViewData["Title"] = "Report";
+}
+
+<h2>Отчет</h2>
+
+<p>
+    <span>Статус: </span>
+    @Html.DropDownList("Статус", Html.GetEnumSelectList(typeof(Gamer.EnumStatus)))
+    <span>Ставки больше внесений: </span>
+    @Html.CheckBox("Условие")
+    <a asp-action="CreateReport" asp-controller="Report">Сформировать</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th><th>ФИО</th><th>Баланс</th><th>Дата регистрации</th><th>Статус</th>
+            </tr>
+    </thead>
+    <tbody>
+@*@foreach (var item in Model.gamerU) {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}*@
+    </tbody>
+</table>
