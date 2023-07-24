@@ -34,208 +34,25 @@ namespace TestWebApp.Controllers
                 return base.View(model);
             }
         }
-        /// <summary>
-        /// /////////
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult CreateGamer()
-        {
-            var gamVm = new Gamer();
-            return View(gamVm);
-        }
-        public async Task<IActionResult> CreateGamerDB(Gamer gamer)
-        {
-            DataBase.Db_Context db2 = new DataBase.Db_Context();
-            db2.Gamers.Add(gamer);
-            await db2.SaveChangesAsync();
 
-            return RedirectToAction("Index");
-        }
-        public async Task<IActionResult> EditGamer(int? id)
-        {
-            if (id != null)
-            {
-                DataBase.Db_Context db = new DataBase.Db_Context();
-                Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == id);
-                if (gamer != null) return View(gamer);
-            }
-            return NotFound();
-        }
-        [HttpPost]
-        public async Task<IActionResult> EditGamer(Gamer gamer)
-        {
-            DataBase.Db_Context db = new DataBase.Db_Context();
-            db.Gamers.Update(gamer);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteGamerDB(int? id)
-        {
-            if (id != null)
-            {
-                DataBase.Db_Context db = new DataBase.Db_Context();
-                Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == id);
-                if (gamer != null)
-                {
-                    db.Gamers.Remove(gamer);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-            }
-            return NotFound();
-        }
-        /// <summary>
-        /// /////////
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult CreateTransaction()
-        {
-            var transVm = new Transaction();
-            return View(transVm);
-        }
-        public async Task<IActionResult> CreateTransactionDB(Transaction transaction)
-        {
-            DataBase.Db_Context db = new DataBase.Db_Context();
-            Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == transaction.GamerId);
-
-            if (transaction.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
-            {
-                if (gamer != null)
-                {
-                    gamer.Balance += transaction.Sum;
-                    db.Gamers.Update(gamer);
-                    await db.SaveChangesAsync();
-                }
-            }
-            else if (transaction.TypeOperation == Transaction.EnumTypeOperation.Снятие)
-            {
-                if (gamer != null)
-                {
-                    gamer.Balance -= transaction.Sum;
-                    db.Gamers.Update(gamer);
-                    await db.SaveChangesAsync();
-                }
-            }
-            db.Transactions.Add(transaction);
-            await db.SaveChangesAsync();
-
-            return RedirectToAction("Index");
-        }
-        public async Task<IActionResult> EditTransaction(int? id)
-        {
-            if (id != null)
-            {
-                DataBase.Db_Context db = new DataBase.Db_Context();
-                Transaction? transaction = await db.Transactions.FirstOrDefaultAsync(p => p.Id == id);
-                if (transaction != null) return View(transaction);
-            }
-            return NotFound();
-        }
-        [HttpPost]
-        public async Task<IActionResult> EditTransaction(Transaction transaction)
-        {
-            DataBase.Db_Context db = new DataBase.Db_Context();
-            Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == transaction.GamerId);
-
-            if (transaction.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
-            {
-                if (gamer != null)
-                {
-                    gamer.Balance += transaction.Sum;
-                    db.Gamers.Update(gamer);
-                    await db.SaveChangesAsync();
-                }
-            }
-            else if (transaction.TypeOperation == Transaction.EnumTypeOperation.Снятие)
-            {
-                if (gamer != null)
-                {
-                    gamer.Balance -= transaction.Sum;
-                    db.Gamers.Update(gamer);
-                    await db.SaveChangesAsync();
-                }
-            }
-
-            db.Transactions.Update(transaction);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteTransactionDB(int? id)
-        {
-            if (id != null)
-            {
-                DataBase.Db_Context db = new DataBase.Db_Context();
-                Transaction? transaction = await db.Transactions.FirstOrDefaultAsync(p => p.Id == id);
-                if (transaction != null)
-                {
-                    db.Transactions.Remove(transaction);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-            }
-            return NotFound();
-        }
-
-        /// <summary>
-        /// ////////////////////////
-        /// </summary>
-        /// <returns></returns>
         public IActionResult CreateBet()
         {
-            var betVm = new Bet();
-            return View(betVm);
-        }
-        public async Task<IActionResult> CreateBetDB(Bet bet)
-        {
-            DataBase.Db_Context db2 = new DataBase.Db_Context();
-            db2.Bets.Add(bet);
-            await db2.SaveChangesAsync();
-
-            return RedirectToAction("Index");
-        }
-        public async Task<IActionResult> EditBet(int? id)
-        {
-            if (id != null)
-            {
-                DataBase.Db_Context db = new DataBase.Db_Context();
-                Bet? bet = await db.Bets.FirstOrDefaultAsync(p => p.Id == id);
-                if (bet != null) return View(bet);
-            }
-            return NotFound();
-        }
-        [HttpPost]
-        public async Task<IActionResult> EditBet(Bet bet)
-        {
-            DataBase.Db_Context db = new DataBase.Db_Context();
-            db.Bets.Update(bet);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("CreateBet","Bet");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteBetDB(int? id)
+        public IActionResult EditBet()
         {
-            if (id != null)
-            {
-                DataBase.Db_Context db = new DataBase.Db_Context();
-                Bet? bet = await db.Bets.FirstOrDefaultAsync(p => p.Id == id);
-                if (bet != null)
-                {
-                    db.Bets.Remove(bet);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-            }
-            return NotFound();
+            return RedirectToAction("EditBet", "Bet");
         }
-        /// <summary>
-        /// //////////
-        /// </summary>
-        /// <returns></returns>
+        public IActionResult CreateGamer()
+        {
+            return RedirectToAction("CreateGamer", "Gamer");
+        }
+
+        public IActionResult EditGamer()
+        {
+            return RedirectToAction("EditGamer", "Gamer");
+        }
         public IActionResult Privacy()
         {
             return View();

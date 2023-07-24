@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<style>
+@*<style>
     .table {
         width: 100%;
         border-collapse: collapse;
@@ -34,7 +34,7 @@
         [id^="click-expand"]:not(:target) + .wrap-expand-table a[href="#close"] {
             display: none;
         }
-</style>
+</style>*@
 
 <caption>Игроки</caption>
 <div id="click-expand1" /></div>
@@ -42,7 +42,7 @@
     <a href="#close">Свернуть</a><a href="#click-expand1">Развернуть</a>
 <table class="table">
     </br>
-    <a asp-action="CreateGamer" asp-controller="Home">Создать</a>
+        <a asp-action="CreateGamer" asp-controller="Gamer">Создать</a>
     <tr><th>ID</th><th>ФИО</th><th>Баланс</th><th>Дата регистрации</th><th>Статус</th></tr>
     @foreach (var item in Model.gamerU)
     {
@@ -54,10 +54,10 @@
             <td>@item.Status</td>
 
             <td>
-                <a asp-action="EditGamer" asp-controller="Home" asp-route-id="@item.Id">Изменить</a>
+                <a asp-action="EditGamer" asp-controller="Gamer" asp-route-id="@item.Id">Изменить</a>
             </td>
             <td>
-                <form asp-controller="Home" asp-action="DeleteGamerDB" method="post" asp-route-id="@item.Id">
+                    <form asp-controller="Gamer" asp-action="DeleteGamerDB" method="post" asp-route-id="@item.Id">
                     <input type="submit" value="Удалить" />
                 </form>
             </td>
@@ -90,10 +90,10 @@
             <td>@item.TypeOperation</td>
 
             <td>
-                <a asp-action="EditTransaction" asp-controller="Home" asp-route-id="@item.Id">Изменить</a>
+                <a asp-action="EditTransaction" asp-controller="Transaction" asp-route-id="@item.Id">Изменить</a>
             </td>
             <td>
-                <form asp-controller="Home" asp-action="DeleteTransactionDB" method="post" asp-route-id="@item.Id">
+                    <form asp-controller="Transaction" asp-action="DeleteTransactionDB" method="post" asp-route-id="@item.Id">
                     <input type="submit" value="Удалить" />
                 </form>
             </td>
@@ -130,10 +130,10 @@
             <td>@item.CalculationDate</td>
 
             <td>
-                <a asp-action="EditBet" asp-controller="Home" asp-route-id="@item.Id">Изменить</a>
+                <a asp-action="EditBet" asp-controller="Bet" asp-route-id="@item.Id">Изменить</a>
             </td>
             <td>
-                <form asp-controller="Home" asp-action="DeleteBetDB" method="post" asp-route-id="@item.Id">
+                <form asp-controller="Bet" asp-action="DeleteBetDB" method="post" asp-route-id="@item.Id">
                     <input type="submit" value="Удалить" />
                 </form>
             </td>
