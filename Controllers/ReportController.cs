@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TestWebApp.DataBase;
+using TestWebApp.Models;
 
 namespace TestWebApp.Controllers
 {
@@ -13,7 +16,11 @@ namespace TestWebApp.Controllers
 
         public async Task<IActionResult> CreateReport()
         {
-            return View();
+            //IEnumerable<Gamer> gamer;
+            Db_Context db = new Db_Context();
+
+            //gamer = ;
+            return View("Report", await db.Gamers.ToListAsync());
         }
     }
 }

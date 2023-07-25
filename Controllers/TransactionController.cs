@@ -19,28 +19,27 @@ namespace TestWebApp.Controllers
         {
             DataBase.Db_Context db = new DataBase.Db_Context();
             Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == transaction.GamerId);
-
-            if (transaction.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
+            if (gamer != null)
             {
-                if (gamer != null)
+                if (transaction.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
                 {
+
                     gamer.Balance += transaction.Sum;
                     db.Gamers.Update(gamer);
                     await db.SaveChangesAsync();
+
                 }
-            }
-            else if (transaction.TypeOperation == Transaction.EnumTypeOperation.Снятие)
-            {
-                if (gamer != null)
+                else if (transaction.TypeOperation == Transaction.EnumTypeOperation.Снятие)
                 {
+
                     gamer.Balance -= transaction.Sum;
                     db.Gamers.Update(gamer);
                     await db.SaveChangesAsync();
-                }
-            }
-            db.Transactions.Add(transaction);
-            await db.SaveChangesAsync();
 
+                }
+                db.Transactions.Add(transaction);
+                await db.SaveChangesAsync();
+            }
             return RedirectToAction("RedirectHomePage");
         }
         public async Task<IActionResult> EditTransaction(int? id)
@@ -58,28 +57,28 @@ namespace TestWebApp.Controllers
         {
             DataBase.Db_Context db = new DataBase.Db_Context();
             Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == transaction.GamerId);
-
-            if (transaction.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
+            if (gamer != null)
             {
-                if (gamer != null)
+                if (transaction.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
                 {
+
                     gamer.Balance += transaction.Sum;
                     db.Gamers.Update(gamer);
                     await db.SaveChangesAsync();
+
                 }
-            }
-            else if (transaction.TypeOperation == Transaction.EnumTypeOperation.Снятие)
-            {
-                if (gamer != null)
+                else if (transaction.TypeOperation == Transaction.EnumTypeOperation.Снятие)
                 {
+
                     gamer.Balance -= transaction.Sum;
                     db.Gamers.Update(gamer);
                     await db.SaveChangesAsync();
-                }
-            }
 
-            db.Transactions.Update(transaction);
-            await db.SaveChangesAsync();
+                }
+
+                db.Transactions.Update(transaction);
+                await db.SaveChangesAsync();
+            }
             return RedirectToAction("RedirectHomePage");
         }
 

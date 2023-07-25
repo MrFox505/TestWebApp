@@ -1,4 +1,4 @@
-﻿@model Union
+﻿@model IEnumerable<Gamer>
 
 @{
     ViewData["Title"] = "Report";
@@ -16,18 +16,26 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th><th>ФИО</th><th>Баланс</th><th>Дата регистрации</th><th>Статус</th>
-            </tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Баланс</th>
+            <th>Дата регистрации</th>
+            <th>Статус</th>
+        </tr>
     </thead>
     <tbody>
-@*@foreach (var item in Model.gamerU) {
-        <tr>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}*@
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Balance</td>
+                    <td>@item.RegistrationDate</td>
+                    <td>@item.Status</td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
