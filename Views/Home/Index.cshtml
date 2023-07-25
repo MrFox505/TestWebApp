@@ -40,104 +40,110 @@
 <div id="click-expand1" /></div>
 <div class="wrap-expand-table">
     <a href="#close">Свернуть</a><a href="#click-expand1">Развернуть</a>
-<table class="table">
-    </br>
+    <table class="table">
+        </br>
         <a asp-action="CreateGamer" asp-controller="Gamer">Создать</a>
-    <tr><th>ID</th><th>ФИО</th><th>Баланс</th><th>Дата регистрации</th><th>Статус</th></tr>
-    @foreach (var item in Model.gamerU)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.FullName</td>
-            <td>@item.Balance</td>
-            <td>@item.RegistrationDate</td>
-            <td>@item.Status</td>
+        <tr><th>ID</th><th>ФИО</th><th>Баланс</th><th>Дата регистрации</th><th>Статус</th></tr>
+        @foreach (var item in Model.gamerU)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FullName</td>
+                <td>@item.Balance</td>
+                <td>@item.RegistrationDate</td>
+                <td>@item.Status</td>
 
-            <td>
-                <a asp-action="EditGamer" asp-controller="Gamer" asp-route-id="@item.Id">Изменить</a>
-            </td>
-            <td>
+                <td>
+                    <form asp-controller="Gamer" asp-action="EditGamer" method="get" asp-route-id="@item.Id">
+                        <input type="submit" value="Изменить" />
+                    </form>
+                </td>
+                <td>
                     <form asp-controller="Gamer" asp-action="DeleteGamerDB" method="post" asp-route-id="@item.Id">
-                    <input type="submit" value="Удалить" />
-                </form>
-            </td>
-        </tr>
-    }
-</table>
+                        <input type="submit" value="Удалить" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
 </div>
 
 <caption>Транзакции</caption>
 <div id="click-expand2" /></div>
 <div class="wrap-expand-table">
     <a href="#close">Свернуть</a><a href="#click-expand2">Развернуть</a>
-<table class="table">
-    </br>
-    <a asp-action="CreateTransaction" asp-controller="Home">Создать</a>
-    <tr>
-        <th>ID транзакции</th>
-        <th>Игрок</th>
-        <th>Сумма</th>
-        <th>Дата</th>
-        <th>Тип транзакции</th>
-    </tr>
-    @foreach (var item in Model.transactionU)
-    {
+    <table class="table">
+        </br>
+        <a asp-action="CreateTransaction" asp-controller="Home">Создать</a>
         <tr>
-            <td>@item.Id</td>
-            <td>@item.GamerId</td>
-            <td>@item.Sum</td>
-            <td>@item.Date</td>
-            <td>@item.TypeOperation</td>
-
-            <td>
-                <a asp-action="EditTransaction" asp-controller="Transaction" asp-route-id="@item.Id">Изменить</a>
-            </td>
-            <td>
-                    <form asp-controller="Transaction" asp-action="DeleteTransactionDB" method="post" asp-route-id="@item.Id">
-                    <input type="submit" value="Удалить" />
-                </form>
-            </td>
+            <th>ID транзакции</th>
+            <th>Игрок</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+            <th>Тип транзакции</th>
         </tr>
-    }
+        @foreach (var item in Model.transactionU)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.GamerId</td>
+                <td>@item.Sum</td>
+                <td>@item.Date</td>
+                <td>@item.TypeOperation</td>
+
+                <td>
+                    <form asp-controller="Transaction" asp-action="EditTransaction" method="get" asp-route-id="@item.Id">
+                        <input type="submit" value="Изменить" />
+                    </form>
+                </td>
+                <td>
+                    <form asp-controller="Transaction" asp-action="DeleteTransactionDB" method="post" asp-route-id="@item.Id">
+                        <input type="submit" value="Удалить" />
+                    </form>
+                </td>
+            </tr>
+        }
     </table>
 </div>
 
 <caption>Ставки</caption>
-    <div id="click-expand3" />
+<div id="click-expand3" />
 </div>
 <div class="wrap-expand-table">
     <a href="#close">Свернуть</a><a href="#click-expand3">Развернуть</a>
-<table class="table">
-    </br>
-    <a asp-action="CreateBet" asp-controller="Home">Создать</a>
-    <tr>
-        <th>ID ставки</th>
-        <th>Игрок</th>
-        <th>Сумма</th>
-        <th>Дата</th>
-        <th>Выигрыш</th>
-        <th>Дата расчета</th>
-
-    </tr>
-    @foreach (var item in Model.betU)
-    {
+    <table class="table">
+        </br>
+        <a asp-action="CreateBet" asp-controller="Home">Создать</a>
         <tr>
-            <td>@item.Id</td>
-            <td>@item.GamerId</td>
-            <td>@item.Sum</td>
-            <td>@item.DateBet</td>
-            <td>@item.Win</td>
-            <td>@item.CalculationDate</td>
+            <th>ID ставки</th>
+            <th>Игрок</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+            <th>Выигрыш</th>
+            <th>Дата расчета</th>
 
-            <td>
-                <a asp-action="EditBet" asp-controller="Bet" asp-route-id="@item.Id">Изменить</a>
-            </td>
-            <td>
-                <form asp-controller="Bet" asp-action="DeleteBetDB" method="post" asp-route-id="@item.Id">
-                    <input type="submit" value="Удалить" />
-                </form>
-            </td>
         </tr>
-    }
+        @foreach (var item in Model.betU)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.GamerId</td>
+                <td>@item.Sum</td>
+                <td>@item.DateBet</td>
+                <td>@item.Win</td>
+                <td>@item.CalculationDate</td>
+
+                <td>
+                    <form asp-controller="Bet" asp-action="EditBet" method="get" asp-route-id="@item.Id">
+                        <input type="submit" value="Изменить" />
+                    </form>
+                </td>
+                <td>
+                    <form asp-controller="Bet" asp-action="DeleteBetDB" method="post" asp-route-id="@item.Id">
+                        <input type="submit" value="Удалить" />
+                    </form>
+                </td>
+            </tr>
+        }
     </table>
 </div>
