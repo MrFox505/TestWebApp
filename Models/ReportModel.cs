@@ -8,7 +8,7 @@ namespace TestWebApp.Models
         [Key]
         public IEnumerable<Gamer> gamerR { get; set; }
 
-        public bool Selecion { get; set; }
+        public bool? Selection { get; set; } = false;
 
         public EnumStatus Status { get; set; }
     }

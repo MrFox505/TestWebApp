@@ -8,10 +8,10 @@
 
 <p>
     <span>Статус: </span>
-    @Html.DropDownList("ReportModel.Status", Html.GetEnumSelectList(typeof(Gamer.EnumStatus)))
+    @Html.DropDownList("Status", Html.GetEnumSelectList(typeof(Gamer.EnumStatus)))
     <span>Ставки больше внесений: </span>
-    @Html.CheckBox("ReportModel.Selection")
-    <a asp-action="CreateReport" asp-controller="Report" metod="post">Сформировать</a>
+    @Html.CheckBox("SelectionChecked")
+    <a asp-action="CreateReport" asp-controller="Report" >Сформировать</a>
 </p>
 <table class="table">
     <thead>
@@ -26,15 +26,18 @@
     <tbody>
         @if (Model != null)
         {
-            @foreach (var item in Model.gamerR)
+            @if (Model.gamerR.Count() != 0)
             {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.FullName</td>
-                    <td>@item.Balance</td>
-                    <td>@item.RegistrationDate</td>
-                    <td>@item.Status</td>
-                </tr>
+                @foreach (var item in Model.gamerR)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.FullName</td>
+                        <td>@item.Balance</td>
+                        <td>@item.RegistrationDate</td>
+                        <td>@item.Status</td>
+                    </tr>
+                }
             }
         }
     </tbody>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestWebApp.DataBase;
 using TestWebApp.Models;
+using static TestWebApp.Models.Gamer;
 
 namespace TestWebApp.Controllers
 {
@@ -14,15 +15,16 @@ namespace TestWebApp.Controllers
             
             return View("Report");
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateReport(ReportModel reportR)
+        
+        public async Task<IActionResult> CreateReport(EnumStatus Status, bool SelectionChecked)
         {
-            if (reportR.Status == 0)
+            if (Status == EnumStatus.Новый)
             {
 
             }
             //IEnumerable<Gamer> gamer;
             Db_Context db = new Db_Context();
+            ReportModel reportR = new ReportModel();
             reportR.gamerR = db.Gamers.ToList();
             return View("Report", reportR);
         }
