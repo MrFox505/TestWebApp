@@ -11,16 +11,22 @@ namespace TestWebApp.Controllers
 
         public IActionResult Index()
         {
+            
             return View("Report");
         }
-
-        public async Task<IActionResult> CreateReport()
+        [HttpPost]
+        public async Task<IActionResult> CreateReport(ReportModel reportR)
         {
+            if (reportR.Status == 0)
+            {
+
+            }
             //IEnumerable<Gamer> gamer;
             Db_Context db = new Db_Context();
-
-            //gamer = ;
-            return View("Report", await db.Gamers.ToListAsync());
+            reportR.gamerR = db.Gamers.ToList();
+            return View("Report", reportR);
         }
+
+        //в запросе использовать AsNoTracking()
     }
 }
