@@ -5,8 +5,8 @@ namespace TestWebApp.Models
 {
     public class ReportModel
     {
-        [Key]
-        public IEnumerable<Gamer> gamerR { get; set; }
+        
+        public List<object> gamerR { get; set; }
 
         public bool? Selection { get; set; } = false;
 
