@@ -35,6 +35,14 @@ namespace TestWebApp.Controllers
             }
         }
 
+        public IActionResult CreateTransaction()
+        {
+            return RedirectToAction("CreateTransaction", "Transaction");
+        }
+        public IActionResult EditTransaction()
+        {
+            return RedirectToAction("EditTransaction", "Transaction");
+        }
         public IActionResult CreateBet()
         {
             return RedirectToAction("CreateBet","Bet");

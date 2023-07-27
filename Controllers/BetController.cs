@@ -17,9 +17,16 @@ namespace TestWebApp.Controllers
         }
         public async Task<IActionResult> CreateBetDB(Bet bet)
         {
-            DataBase.Db_Context db2 = new DataBase.Db_Context();
-            db2.Bets.Add(bet);
-            await db2.SaveChangesAsync();
+            DataBase.Db_Context db = new DataBase.Db_Context();
+            Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == bet.GamerId);
+            if (gamer != null)
+            {
+                gamer.Balance -= bet.Sum;
+                db.Gamers.Update(gamer);
+                await db.SaveChangesAsync();
+            }
+            db.Bets.Add(bet);
+            await db.SaveChangesAsync();
 
             return RedirectToAction("RedirectHomePage");
         }
@@ -37,6 +44,13 @@ namespace TestWebApp.Controllers
         public async Task<IActionResult> EditBet(Bet bet)
         {
             DataBase.Db_Context db = new DataBase.Db_Context();
+            Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == bet.GamerId);
+            if (gamer != null)
+            {
+                gamer.Balance -= bet.Sum;
+                db.Gamers.Update(gamer);
+                await db.SaveChangesAsync();
+            }
             db.Bets.Update(bet);
             await db.SaveChangesAsync();
             return RedirectToAction("RedirectHomePage");

@@ -6,13 +6,13 @@
 
 <h2>Отчет</h2>
 
-<p>
+<form asp-controller="Report" asp-action="CreateReport" method="get">
     <span>Статус: </span>
     @Html.DropDownList("Status", Html.GetEnumSelectList(typeof(Gamer.EnumStatus)))
     <span>Ставки больше внесений: </span>
     @Html.CheckBox("SelectionChecked")
-    <a asp-action="CreateReport" asp-controller="Report" >Сформировать</a>
-</p>
+    <input type="submit" value="Сформировать" />
+</form>
 <table class="table">
     <thead>
         <tr>
