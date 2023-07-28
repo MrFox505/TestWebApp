@@ -6,7 +6,7 @@ namespace TestWebApp.Models
     public class ReportModel
     {
         
-        public List<object> gamerR { get; set; }
+        public List<ReportGamer> gamerR { get; set; }
 
         public bool? Selection { get; set; } = false;
 
