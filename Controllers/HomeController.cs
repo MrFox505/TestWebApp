@@ -19,8 +19,7 @@ namespace TestWebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //db = new Child_DbContext();
-            //return View(await db.Gamers.ToListAsync());
+     
             using (var db = new DataBase.Db_Context())
             {
                 var model = new Union();

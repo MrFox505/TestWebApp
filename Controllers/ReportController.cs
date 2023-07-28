@@ -29,7 +29,7 @@ namespace TestWebApp.Controllers
                 RegistrationDate = t.RegistrationDate
 
             }).AsNoTracking().ToList();
-            //hjrb c cevvj
+            //Условие ставок больше чем пополнений
             if (SelectionChecked == true)
             {
                 var gamerBet = gamer.GroupJoin(db.Bets, g => g.Id, b => b.GamerId, (g, c) => new
