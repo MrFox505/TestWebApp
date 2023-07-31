@@ -6,6 +6,7 @@ namespace TestWebApp.Controllers
 {
     public class BetController : Controller
     {
+        private static Bet? betEdit;
         public IActionResult RedirectHomePage()
         {
             return RedirectToAction("Index", "Home");
@@ -35,8 +36,8 @@ namespace TestWebApp.Controllers
             if (id != null)
             {
                 DataBase.Db_Context db = new DataBase.Db_Context();
-                Bet? bet = await db.Bets.FirstOrDefaultAsync(p => p.Id == id);
-                if (bet != null) return View(bet);
+                betEdit = await db.Bets.FirstOrDefaultAsync(p => p.Id == id);
+                if (betEdit != null) return View(betEdit);
             }
             return NotFound();
         }
@@ -47,9 +48,12 @@ namespace TestWebApp.Controllers
             Gamer? gamer = await db.Gamers.FirstOrDefaultAsync(p => p.Id == bet.GamerId);
             if (gamer != null)
             {
-                gamer.Balance -= bet.Sum;
-                db.Gamers.Update(gamer);
-                await db.SaveChangesAsync();
+                if (betEdit.Sum != bet.Sum)
+                {
+                    gamer.Balance += (betEdit.Sum - bet.Sum);
+                    db.Gamers.Update(gamer);
+                    await db.SaveChangesAsync();
+                }                
             }
             db.Bets.Update(bet);
             await db.SaveChangesAsync();
