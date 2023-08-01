@@ -78,16 +78,33 @@ namespace TestWebApp.Controllers
                 {
                     if (transactionEdit.TypeOperation != transaction.TypeOperation)
                     {
-
+                        //отмена предыдущей транзакции, приведение баланса к исходному состоянию
+                        if (transactionEdit.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
+                        {
+                            gamer.Balance -= transactionEdit.Sum;
+                        }
+                        if (transactionEdit.TypeOperation == Transaction.EnumTypeOperation.Снятие)
+                        {
+                            gamer.Balance += transactionEdit.Sum;
+                        }
+                        //Расчет нового значения баланса
+                        if (transaction.TypeOperation == Transaction.EnumTypeOperation.Пополнение)
+                        {
+                            gamer.Balance += transaction.Sum;
+                        }
+                        if (transaction.TypeOperation == Transaction.EnumTypeOperation.Снятие)
+                        {
+                            gamer.Balance -= transaction.Sum;
+                        }
                     }
                     else
                     {
                         gamer.Balance += transactionEdit.Sum - transaction.Sum;
-                    }                    
+                    }
                     db.Gamers.Update(gamer);
                     await db.SaveChangesAsync();
                 }
-                
+
                 db.Transactions.Update(transaction);
                 await db.SaveChangesAsync();
             }
