@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using TestWebApp.DataBase;
 using TestWebApp.Models;
 using static TestWebApp.Models.Gamer;
@@ -20,53 +21,65 @@ namespace TestWebApp.Controllers
             Db_Context db = new Db_Context();
             ReportModel reportR = new ReportModel();
 
-            var gamer = from gamers in db.Gamers
-                        join bets in db.Bets on gamers.Id equals bets.GamerId
-                        join trans in db.Transactions on gamers.Id equals trans.GamerId
-                        where gamers.Status == Status
-                        group gamers by gamers.Id into newGroup
-                        select new ReportGamer
-                        {
-                            Id = gamers.Id,
-                            FullName = gamers.FullName,
-                            Balance = gamers.Balance,
-                            RegistrationDate = gamers.RegistrationDate,
-                            Status = gamers.Status,
-                            BetSum = bets.Sum,
-                            TransSum = trans.Sum
-                        };
-            //игроки с нужным статусом
-            //var gamer = db.Gamers.Join(db.Bets, g => g.Id, b => b.GamerId, (g, c) => new ReportGamer
+            //var gamerTemp = from p in (from gamers in db.Gamers
+            //                           join bets in db.Bets on gamers.Id equals bets.GamerId
+            //                           join trans in db.Transactions on gamers.Id equals trans.GamerId
+            //                           where gamers.Status == Status & trans.TypeOperation == Transaction.EnumTypeOperation.Пополнение
+            //                           //group gamers by gamers.Id into newGroup
+            //                           select new ReportGamer
+            //                           {
+            //                               Id = gamers.Id,
+            //                               FullName = gamers.FullName,
+            //                               Balance = gamers.Balance,
+            //                               RegistrationDate = gamers.RegistrationDate,
+            //                               Status = gamers.Status,
+            //                               BetSum = bets.Sum,
+            //                               TransSum = trans.Sum
+            //                           })
+            //                group p by p.Id;
+
+
+            //var gamer = gamerTemp.GroupBy(g => g.Id).Select(p => new
             //{
-            //    Id = g.Id,
-            //    FullName = g.FullName,
-            //    Balance = g.Balance,
-            //    RegistrationDate = g.RegistrationDate,
-            //    Status = g.Status,
-            //    BetSum = c.Sum
-            //}).Join(db.Transactions, t => t.Id, gb => gb.GamerId, (t, gb) => new ReportGamer
-            //{
-            //    Id = t.Id,
-            //    FullName = t.FullName,
-            //    Balance = t.Balance,
-            //    RegistrationDate = t.RegistrationDate,
-            //    Status = t.Status,
-            //    BetSum = t.BetSum,
-            //    TransSum = gb.Sum
-            //}).Where(p => p.Status == Status).GroupBy(l => l.Id, l=> new ReportGamer
-            //{
-            //    Id = l.Id,
-            //    FullName = l.FullName,
-            //    Balance = l.Balance,
-            //    RegistrationDate = l.RegistrationDate,
-            //    Status = l.Status,
-            //    BetSum = l.BetSum,
-            //    TransSum = l.TransSum
-            //}).Select(s => new ReportGamer
-            //{
-            //    BetSum = s.Sum(p => p.BetSum),
-            //    TransSum = s.Sum(p => p.TransSum)
+            //    Id = p.Key,
+            //    All = p.Select(p => new ReportGamer
+            //    {
+            //        FullName = p.FullName,
+            //        Balance = p.Balance,
+            //        RegistrationDate = p.RegistrationDate,
+            //        Status = p.Status,
+            //        BetSum = Sum(x => x.BetSum),
+            //        TransSum = trans.Sum
+            //    })
             //});
+            //игроки с нужным статусом
+            var gamer = db.Gamers.GroupJoin(db.Bets, g => g.Id, b => b.GamerId, (g, c) => new ReportGamer
+            {
+                Id = g.Id,
+                FullName = g.FullName,
+                Balance = g.Balance,
+                RegistrationDate = g.RegistrationDate,
+                Status = g.Status,
+                BetSum = c.Sum(x=>x.Sum)
+            }).GroupJoin(db.Transactions, t => t.Id, gb => gb.GamerId, (t, gb) => new ReportGamer
+            {
+                Id = t.Id,
+                FullName = t.FullName,
+                Balance = t.Balance,
+                RegistrationDate = t.RegistrationDate,
+                Status = t.Status,
+                BetSum = t.BetSum,
+                TransSum = gb.Sum(x => x.Sum)
+            }).Where(p => p.Status == Status).Select(l => new ReportGamer
+            {
+                Id = l.Id,
+                FullName = l.FullName,
+                Balance = l.Balance,
+                RegistrationDate = l.RegistrationDate,
+                Status = l.Status,
+                BetSum = l.BetSum,
+                TransSum = l.TransSum
+            });
 
             reportR.gamerR = gamer.ToList();
 
