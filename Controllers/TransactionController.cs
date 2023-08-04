@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TestWebApp.Models;
 
@@ -7,7 +8,7 @@ namespace TestWebApp.Controllers
     public class TransactionController : Controller
     {
         private static Transaction? transactionEdit;
-
+        DataBase.Db_Context db;
         public IActionResult RedirectHomePage()
         {
             return RedirectToAction("Index", "Home");
@@ -15,8 +16,12 @@ namespace TestWebApp.Controllers
         public IActionResult CreateTransaction()
         {
             var transVm = new Transaction();
+            db = new DataBase.Db_Context();
+            ViewData["GamerId"] = new SelectList(db.Gamers, "Id", "FullName");
             return View(transVm);
         }
+
+        [HttpPost]
         public async Task<IActionResult> CreateTransactionDB(Transaction transaction)
         {
             DataBase.Db_Context db = new DataBase.Db_Context();
@@ -50,6 +55,7 @@ namespace TestWebApp.Controllers
             {
                 DataBase.Db_Context db = new DataBase.Db_Context();
                 transactionEdit = await db.Transactions.FirstOrDefaultAsync(p => p.Id == id);
+                ViewData["GamerId"] = new SelectList(db.Gamers, "Id", "FullName");
                 if (transactionEdit != null) return View(transactionEdit);
             }
             return NotFound();

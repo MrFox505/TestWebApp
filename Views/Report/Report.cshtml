@@ -6,7 +6,7 @@
 
 <h2>Отчет</h2>
 
-<form asp-controller="Report" asp-action="NewCreateReport" method="get">
+<form asp-controller="Report" asp-action="CreateReport" method="get">
     <span>Статус: </span>
     @Html.DropDownList("Status", Html.GetEnumSelectList(typeof(Gamer.EnumStatus)))
     <span>Ставки больше внесений: </span>

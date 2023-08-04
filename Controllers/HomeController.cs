@@ -20,7 +20,7 @@ namespace TestWebApp.Controllers
         public async Task<IActionResult> Index()
         {
      
-            using (var db = new DataBase.Db_Context())
+            using (var db = new Db_Context())
             {
                 var model = new Union();
                 {
